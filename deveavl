@@ -1,0 +1,6 @@
+export CODE=/Users/cam/code/EAVL
+export LIBS=
+export DOCS=
+export CSEARCHINDEX=$CODE/.csearchindex
+export MYPROJECT=EAVL
+

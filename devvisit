@@ -1,0 +1,4 @@
+if [[ `uname` = Linux ]]; then export CODE=/scratch/cam/visit-git-svn/src;
+else export CODE=/Users/cam/code/visit/visit-git/src; fi
+export CSEARCHINDEX=$CODE/.csearchindex
+export MYPROJECT=VISIT

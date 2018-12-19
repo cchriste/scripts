@@ -1,0 +1,9 @@
+#CS6620 - ray tracing
+export CODE=~/Dropbox/classes/cs6620
+export LIBS=
+export DOCS=
+export CSEARCHINDEX=$CODE/.csearchindex
+export MYPROJECT=RT
+if [[ "`hostname`" == "jupiter.sci.utah.edu" ]]; then
+   export PATH=/usr/local/ImageMagick-6.7.4/bin:$PATH
+fi

@@ -1,0 +1,6 @@
+export CODE=/Users/cam/code/talass
+export LIBS=/Users/cam/code/nvisus/build/talass/2013_03_22-41430f0/visuscpp
+export DOCS=/Users/cam/code/nvisus/docs
+export CSEARCHINDEX=$CODE/.csearchindex
+export MYPROJECT=TALASS
+

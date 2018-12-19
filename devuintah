@@ -1,0 +1,5 @@
+export CODE=/Users/cam/code/uintah/src
+export LIBS=/Users/cam/code/uintah_pidx/src
+export DOCS=
+export CSEARCHINDEX=$CODE/.csearchindex
+export MYPROJECT=UINTAH

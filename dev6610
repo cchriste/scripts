@@ -1,0 +1,7 @@
+#CS6610 - opengl
+export CODE=~/classes/cs6610
+export LIBS=
+export DOCS=
+export CSEARCHINDEX=$CODE/.csearchindex
+export MYPROJECT=SCHOOL
+

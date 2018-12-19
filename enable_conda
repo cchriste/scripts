@@ -1,0 +1,11 @@
+#Sunday, October 21, 2018
+#enable anaconda3 environment
+#execute using ". enable_conda"
+
+source ~/dot/utils.sh
+
+ENABLE_ANACONDA3=1
+if [ "$ENABLE_ANACONDA3" -eq 1 ]; then
+  add_to_path "$HOME/tools/anaconda3/bin"
+  PS1="[conda] $PS1"
+fi

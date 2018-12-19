@@ -1,0 +1,49 @@
+#! /bin/sh
+#
+# make-emacs-tags
+# 
+# Build an emacs tags table for the entire subtree rooted at the
+#	current directory.  This table includes all C, C++, Lisp, Emacs
+#	Lisp, and Makefiles.  In addition, the file name for each file is
+#	added as a tag to the table.  A list of directories can be supplied
+#	as command-line arguments.  If they are supplied the TAGS table will
+#	be built from those directories.  Otherwise '.' is used.
+#
+
+TAG_DIRS=
+
+if test "$1" = ""; then
+	TAG_DIRS="."
+else
+	TAG_DIRS=
+	while test "$1" != ""
+	do
+		TAG_DIRS="$TAG_DIRS $1"
+		shift
+	done
+fi
+
+findsrc.sh -web
+
+if [[ "`hostname -s`" = "jupiter" ]]; then
+    CTAGS=$HOME/bin/osx/ctags
+elif [[ "`hostname -s`" = "mercury" ]]; then
+    CTAGS=/usr/local/bin/ctags
+elif [[ "`hostname -s`" = "gunship" ]]; then
+    CTAGS=/usr/bin/ctags
+else
+    CTAGS=ctags
+    CTAGS=/usr/local/bin/ctags
+fi
+
+IGNORE="VISUS_API"  #comma-separated list of identifiers to ignore, see ctags -I man page.
+
+cat /tmp/cfiles.txt | $CTAGS -e -I ${IGNORE} --language-force=c++ -L -
+cat /tmp/csfiles.txt | $CTAGS -e --append=yes -L -
+cat /tmp/webfiles.txt | $CTAGS -e --append=yes -L -
+cat /tmp/files.txt | $CTAGS -e --append=yes -L -
+
+#cat /tmp/cfiles.txt | etags - - >./TAGS
+#cat /tmp/csfiles.txt | etags - - >>./TAGS
+#cat /tmp/webfiles.txt | etags - - >>./TAGS
+#cat /tmp/files.txt | etags - - >>./TAGS

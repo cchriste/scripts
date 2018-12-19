@@ -1,0 +1,2 @@
+#! /bin/bash
+cd build && make && cd python && python setup.py install --prefix=/Users/cam/tools/cdat && cd ../../tools && python OkuboWeissTest.py /usr/sci/visus2/data/Climate/sean/UVEL.t.t0.1_42l_oilspill12c.00020321.nc /usr/sci/visus2/data/Climate/sean/VVEL.t.t0.1_42l_oilspill12c.00020321.nc /usr/sci/visus2/data/Climate/sean/GRID.nc $1 $2 > $3

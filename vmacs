@@ -1,0 +1,8 @@
+#!/bin/bash
+
+#vmacs: start emacs with visus paths
+
+$HOME/bin/dev visus
+source $HOME/bin/devvisus
+source $HOME/code/uvcdat-build/install/bin/setup_runtime.sh
+emacs &

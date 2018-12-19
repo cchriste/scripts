@@ -1,0 +1,6 @@
+export CODE=/Users/cam/code/PIDX
+export LIBS=
+export DOCS=/Users/cam/code/PIDX/docs
+export CSEARCHINDEX=$CODE/.csearchindex
+export MYPROJECT=PIDX
+

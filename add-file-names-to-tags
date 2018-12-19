@@ -1,0 +1,69 @@
+#!/usr/bin/perl
+#
+# File:		expand-container-decls-to-tags
+# Author:	Cameron Christensen
+# Created:	February 20, 2001
+#
+# Description: (adapted from add-file-names-to-tags by Robert Mecklenburg)
+#		This script reads a file named TAGS from the current
+#		directory and expands container declarations of the 
+#		form CONTAINERTYPE_DECLARE(type, prefix) to their 
+#		respective expanded types. 
+#		
+#		This script understands four container types 
+#		(from ff_iter_all.h):
+#
+# 		PLIST_DECLARE(type, prefix) 
+# 			prefix_plist_t
+#			prefix_plist_iter_t
+#			prefix_plist_citer_t
+#			prefix_plist_uit_t
+#			prefix_plist_cuit_t
+#
+
+#
+#
+#
+# (c) Copyright 2001, Parametric Technology Corporation, all rights reserved.
+#
+
+open( TAGS, "<TAGS" );
+
+while ( <TAGS> )
+{
+    if (/^$/)
+    {
+	# Print the formfeed
+	print;
+
+	# And grab the nextline
+	$_ = <TAGS>;
+	print;
+
+	# Grab the file name from the line
+	@line = split( /,/, $_ );
+	@path = split( /\//, $line[0] );
+	$name = $path[ $#path ];
+
+	# Now decide what the file header looks like
+	if ( $name =~ /.*\.(h|H|hxx|c|C|cxx)$/ )
+	{
+	    printf " * File:\t%s\1770,0\n", $path[ $#path ]
+	}
+	elsif ( $name =~ /.*\.(el|lisp|cl)$/ )
+	{
+	    printf ";;; File:\t%s\1770,0\n", $path[ $#path ];
+	}
+	else
+	{
+	    printf "# File:\t\t%s\1770,0\n", $path[ $#path ];
+	}
+    }
+    else
+    {
+	print
+    }
+}
+
+close( TAGS );
+exit( 0 );

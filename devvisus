@@ -1,0 +1,6 @@
+export CODE=/Users/cam/code/nvisus/visuscpp
+export LIBS=/Users/cam/code/nvisus/libs
+export DOCS=/Users/cam/code/nvisus/docs
+export CSEARCHINDEX=$CODE/.csearchindex
+export MYPROJECT=VISUS
+

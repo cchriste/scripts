@@ -1,0 +1,11 @@
+#CS6958 - hardware ray tracing
+export CODE=~/Dropbox/classes/cs6958/git
+export LIBS=~/Dropbox/classes/cs6958/simtrax
+export DOCS=
+export CSEARCHINDEX=~/Dropbox/classes/cs6958/.csearchindex
+export MYPROJECT=HWRT
+if [[ "`hostname`" == "jupiter.sci.utah.edu" ]]; then
+   export PATH=/usr/local/ImageMagick-6.7.4/bin:$PATH
+fi
+
+export PATH=$LIBS/sim:$PATH

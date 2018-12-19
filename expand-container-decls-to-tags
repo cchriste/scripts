@@ -1,0 +1,116 @@
+#!/usr/bin/perl
+#
+# File:		expand-container-decls-to-tags
+# Author:	Cameron Christensen
+# Created:	February 20, 2001
+#
+# Description: (adapted from add-file-names-to-tags by Robert Mecklenburg)
+#		This script reads a file named TAGS from the current
+#		directory and expands container declarations of the 
+#		form CONTAINERTYPE_DECLARE(type, prefix) to their 
+#		respective expanded types. 
+#		
+#		This script understands four container types 
+#		(from ff_iter_all.h):
+#
+# * PLIST_DECLARE(type, prefix t) 
+# *	t_plist_t
+# *	t_plist_iter_t
+# *	t_plist_citer_t
+# *	t_plist_uit_t
+# *	t_plist_cuit_t
+#
+# * LIST_DECLARE
+# *	t_list_t
+# *	t_list_iter_t
+# *	t_list_citer_t
+# *	t_list_uit_t
+# *	t_list_cuit_t
+#
+# * MAP_DECLARE
+# *	t_map_t
+# *	t_map_pair_t
+# *	t_map_iter_t
+# *	t_map_uit_t
+#
+# * SET_DECLARE
+# *	t_set_t
+# *	t_set_iter_t
+# *	t_set_uit_t
+#
+# * PSET_DECLARE
+# *	t_pset_t
+# *	t_pset_iter_t
+# *	t_pset_uit_t
+#
+# * PVEC_DECLARE
+# *	t_pvec_t
+# *	t_pvec_uit_t
+# *	t_pvec_cuit_t
+#
+# * VEC_DECLARE
+# *	t_vec_t
+# *	t_vec_uit_t
+# *	t_vec_cuit_t
+#
+# (c) Copyright 2001, Parametric Technology Corporation, all rights reserved.
+#
+
+open( TAGS, "<TAGS" );
+
+while ( <TAGS> )
+{
+    if ( /^[^#].*_DECLARE\(.*/ )
+    {
+	# Print the formfeed
+	print;
+
+	# Grab the container type and prefix name from the line
+	@line = split( /_/, $_ );
+	$type = $line[0];
+	$type =~ tr/[A-Z]/[a-z]/;
+
+	printf " container type = %s\n", $type;
+
+	@args = split( /[(,) ]/, $_ );
+	$prfx = $args[ $#args - 2 ];
+
+	printf " prefix = %s\n", $prfx;
+
+	# Now add the new tags.
+	@line     = split( //, $_ );
+	$location = $line[0];
+ 
+	# All types have prefix_t and prefix_uit_t.
+	printf "%s\177%s_%s_t\0010,0\n", $location, $prfx, $type;
+	printf "%s\177%s_%s_uit_t\0010,0\n", $location, $prfx, $type;
+
+	# PLIST, LIST, MAP, SET, PSET all have iter_t.
+	if ( $type =~ /(plist|list|map|set|pset)/ )
+	{
+	    printf "%s\177%s_%s_iter_t\0010,0\n", $location, $prfx, $type;
+	}
+	# PLIST and LIST have citer_t.
+	if ( $type =~ /(plist|list)/ )
+	{
+	    printf "%s\177%s_%s_citer_t\0010,0\n", $location, $prfx, $type;
+	}
+	# PLIST, LIST, PVEC, VEC have cuit_t.
+	if ( $type =~ /(plist|list|pvec|vec)/ )
+	{
+	    printf "%s\177%s_%s_cuit_t\0010,0\n", $location, $prfx, $type;
+	}
+	# MAP has pair_t.
+	if ( $type =~ /map/ )
+	{
+	    printf "%s\177%s_%s_pair_t\0010,0\n", $location, $prfx, $type;
+	}	
+    }
+    else
+    {
+	print
+    }
+}
+
+close( TAGS );
+exit( 0 );

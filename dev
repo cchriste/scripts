@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if [[ "${1}" == "" ]]
+then
+    echo "Usage: dev <name>     # name is one of 'visus', 'uintah' (includes visit), 'school' (all classes), 'rt' (cs6620), 'hwrt' (cs6958), 'talass', (not yet available: 'ir')"
+    exit
+fi
+
+echo "Configuring develop environment for ${1}..."
+echo "Use 'update' to refresh codesearch index."
+echo "YOU MUST NOW TYPE 'source ~/bin/dev${1}' to set environment (for emacs, etc)"
+source ~/bin/dev${1}
+pushd $CODE
+make-emacs-tags
+popd
+update
